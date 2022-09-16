@@ -95,7 +95,7 @@ def handler(event, context):
                                  '--conf', 'spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog', 
                                  '--master', 'yarn',
                                  '--deploy-mode', 'cluster',
-                                 's3://etl-rais-desafio-mod1/pyspark/transform.py'
+                                 's3://etl-rais-desafio-mod1/pyspark/spark_transform.py'
                                  ]
                     }
                 },
@@ -110,7 +110,7 @@ def handler(event, context):
                                  '--conf', 'spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog', 
                                  '--master', 'yarn',
                                  '--deploy-mode', 'cluster',
-                                 's3://etl-rais-desafio-mod1/pyspark/processing.py'
+                                 's3://etl-rais-desafio-mod1/pyspark/spark_processing.py'
                                  ]
                     }
                 },                
