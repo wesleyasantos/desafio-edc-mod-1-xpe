@@ -1,17 +1,19 @@
+import json
 import boto3
+
+client = boto3.client('emr', region_name='us-east-2')
 
 def handler(event, context):
     """
     Lambda function that starts a job flow in EMR.
     """
-    client = boto3.client('emr', region_name='us-east-2')
 
-    cluster_id = client.run_job_flow(
+    response = client.run_job_flow(
                 Name='desafio-mod-1-xpe-emr',
-                ServiceRole='EMR_DefaultRole',
                 JobFlowRole='EMR_EC2_DefaultRole',
+                ServiceRole='EMR_DefaultRole',
                 VisibleToAllUsers=True,
-                LogUri='s3://aws-logs-962963747765-us-east-2/emr-logs',
+                LogUri='s3://aws-logs-962963747765-us-east-2/elasticmapreduce/',
                 ReleaseLabel='emr-6.7.0',
                 Instances={
                     'InstanceGroups': [
