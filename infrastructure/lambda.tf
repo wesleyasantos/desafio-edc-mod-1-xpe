@@ -11,7 +11,7 @@ resource "aws_lambda_function" "executa_emr" {
   runtime =  "python3.10"
 
   tags = {
-    MOD1 = "DESAFIO"
+    MOD1  = "DESAFIO"
     CURSO = "EDC"
   }
 }
