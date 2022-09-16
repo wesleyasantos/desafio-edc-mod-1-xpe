@@ -2,13 +2,12 @@ name: Test
 
 on:
   pull_request:
-    branches: [ "dev" ]
+    branches: [ "master" ]
 
 jobs:
-  deploy:
-    name: Test to Datalake
+  test:
+    name: Test infra on PR
     runs-on: ubuntu-latest
-    environment: production
     defaults:
       run:
         shell: bash
@@ -31,6 +30,10 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-2
+
+    - name: Build Lambda Package
+      run: |
+        sh scripts/build_lambda_package.sh
 
     - name: IaC Apply
       env:
