@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "datalake" {
-  bucket = "dl-desafio-mod1-tf"
+  bucket = "dados-rais-2020-edc"
 
   tags = {
     MOD1   = "DESAFIO"
