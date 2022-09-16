@@ -111,10 +111,9 @@ def handler(event, context):
                                  's3://etl-rais-desafio-mod1/pyspark/processing.py'
                                  ]
                     }
-                }
-                
+                },                
                 {
-                    'Name': 'Criacao do Manifesto SYMLINK para o Athena',
+                    'Name': 'Criacao do Manifesto Symlink',
                     'ActionOnFailure': 'CONTINUE',
                     'HadoopJarStep': {
                         'Jar': 'command-runner.jar',
@@ -128,7 +127,7 @@ def handler(event, context):
                                  ]
                     }
                 }],
-            )
+)
     
     return {
         'statusCode': 200,
