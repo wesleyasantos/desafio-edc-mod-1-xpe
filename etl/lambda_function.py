@@ -15,7 +15,7 @@ def handler(event, context):
                 VisibleToAllUsers=True,
                 LogUri='s3://aws-logs-962963747765-us-east-2/elasticmapreduce/',
                 AmiVersion='ami-0568773882d492fc8'
-                ReleaseLabel='emr-6.3.0',
+                ReleaseLabel='emr-6.7.0',
                 Instances={
                     'InstanceGroups': [
                         {
