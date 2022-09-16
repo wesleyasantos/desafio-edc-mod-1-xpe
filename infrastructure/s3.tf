@@ -1,9 +1,8 @@
 resource "aws_s3_bucket" "datalake" {
-  # Parâmetros de config do recurso escolhido
-  bucket = "datalake-tf-test"
+  bucket = "dl-desafio-mod1-tf"
 
   tags = {
-    IES   = "TESTE"
-    CURSO = "IAC"
+    MOD1   = "DESAFIO"
+    CURSO = "EDC"
   }
 }

@@ -1,7 +1,31 @@
-resource "aws_s3_bucket_object" "job_spark" {
+resource "aws_s3_bucket_object" "lambda_function" {
   bucket = aws_s3_bucket.datalake.id
-  key    = "emr_code/pyspark/job_spark_from_tf.py"
+  key    = "data-manipulation/pyspark/lambda_function.py"
   acl    = "private"
-  source = "../job_spark.py"
-  etag   = filemd5("../job_spark.py")
+  source = "../../etl/lambda_function.py"
+  etag   = filemd5("../etl/lambda_function.py")
+}
+
+resource "aws_s3_bucket_object" "spark_transform" {
+  bucket = aws_s3_bucket.datalake.id
+  key    = "data-manipulation/pyspark/spark_transform.py"
+  acl    = "private"
+  source = "../etl/spark_transform.py"
+  etag   = filemd5("../etl/spark_transform.py")
+}
+
+resource "aws_s3_bucket_object" "spark_processing" {
+  bucket = aws_s3_bucket.datalake.id
+  key    = "data-manipulation/pyspark/spark_processing.py"
+  acl    = "private"
+  source = "../etl/spark_processing.py"
+  etag   = filemd5("../etl/spark_processing.py")
+}
+
+resource "aws_s3_bucket_object" "spark_processed" {
+  bucket = aws_s3_bucket.datalake.id
+  key    = "data-manipulation/pyspark/spark_processed.py"
+  acl    = "private"
+  source = "../etl/spark_processed.py"
+  etag   = filemd5("../etl/spark_processed.py")
 }
