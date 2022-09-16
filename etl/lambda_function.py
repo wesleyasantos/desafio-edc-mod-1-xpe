@@ -93,7 +93,7 @@ def handler(event, context):
                                  '--conf', 'spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog', 
                                  '--master', 'yarn',
                                  '--deploy-mode', 'cluster',
-                                 's3://data-manipulation-df/pyspark/transform.py'
+                                 's3://etl-rais-desafio-mod1/pyspark/transform.py'
                                  ]
                     }
                 },
@@ -108,7 +108,7 @@ def handler(event, context):
                                  '--conf', 'spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog', 
                                  '--master', 'yarn',
                                  '--deploy-mode', 'cluster',
-                                 's3://data-manipulation-df/pyspark/processing.py'
+                                 's3://etl-rais-desafio-mod1/pyspark/processing.py'
                                  ]
                     }
                 }
@@ -124,7 +124,7 @@ def handler(event, context):
                                  '--conf', 'spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog', 
                                  '--master', 'yarn',
                                  '--deploy-mode', 'cluster',
-                                 's3://data-manipulation-df/pyspark/spark_processed.py'
+                                 's3://etl-rais-desafio-mod1/pyspark/spark_processed.py'
                                  ]
                     }
                 }],
