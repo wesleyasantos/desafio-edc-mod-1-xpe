@@ -14,8 +14,8 @@ def handler(event, context):
                 ServiceRole='EMR_DefaultRole',
                 VisibleToAllUsers=True,
                 LogUri='s3://aws-logs-962963747765-us-east-2/elasticmapreduce/',
-                AmiVersion='ami-0568773882d492fc8'
-                ReleaseLabel='emr-6.7.0',
+                AmiVersion='ami-0568773882d492fc8',
+                ReleaseLabel='emr-6.6.0',
                 Instances={
                     'InstanceGroups': [
                         {
