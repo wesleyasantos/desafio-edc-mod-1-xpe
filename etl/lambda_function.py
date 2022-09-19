@@ -85,44 +85,14 @@ def handler(event, context):
                 StepConcurrencyLevel=1,
                 
                 Steps=[{
-                    'Name': 'Transformacao dos Formato do DF',
-                    'ActionOnFailure': 'CONTINUE',
-                    'HadoopJarStep': {
-                        'Jar': 'command-runner.jar',
-                        'Args': ['spark-submit',
-                                 '--master', 'yarn',
-                                 '--deploy-mode', 'cluster',
-                                 's3://etl-rais-desafio-mod1/pyspark/spark_transform.py'
-                                 ]
-                    }
-                },
-                {
                     'Name': 'Processamento dos Dados',
                     'ActionOnFailure': 'CONTINUE',
                     'HadoopJarStep': {
                         'Jar': 'command-runner.jar',
-                        'Args': ['spark-submit',
-                                 '--packages', 'io.delta:delta-core_2.12:1.0.0', 
-                                 '--conf', 'spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension', 
-                                 '--conf', 'spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog', 
+                        'Args': ['spark-submit', 
                                  '--master', 'yarn',
                                  '--deploy-mode', 'cluster',
                                  's3://etl-rais-desafio-mod1/pyspark/spark_processing.py'
-                                 ]
-                    }
-                },                
-                {
-                    'Name': 'Criacao do Manifesto Symlink',
-                    'ActionOnFailure': 'CONTINUE',
-                    'HadoopJarStep': {
-                        'Jar': 'command-runner.jar',
-                        'Args': ['spark-submit',
-                                 '--packages', 'io.delta:delta-core_2.12:1.0.0', 
-                                 '--conf', 'spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension', 
-                                 '--conf', 'spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog', 
-                                 '--master', 'yarn',
-                                 '--deploy-mode', 'cluster',
-                                 's3://etl-rais-desafio-mod1/pyspark/spark_processed.py'
                                  ]
                     }
                 }],
