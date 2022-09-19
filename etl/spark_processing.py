@@ -6,15 +6,13 @@ from pyspark.sql import functions as f
 from pyspark.sql.functions import col, min, max, lit
 
 # Define a SparkSession com config para o formato delta
-spark = (SparkSession
-        .builder
-        .appName("Processing")
-        .config("spark.jars.packages", "io.delta:delta-core_2.12:1.0.0")
-        .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
-        .config("sparl.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
-        .enableHiveSupport()
-        .getOrCreate()
-)
+spark = SparkSession \
+    .builder \
+    .appName("Processing") \
+    .config("spark.jars.packages", "io.delta:delta-core_2.12:1.0.0") \
+    .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
+    .config("sparl.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
+    .getOrCreate()
 
 # Config de logs da aplicação
 logging.basicConfig(stream=sys.stdout)
@@ -26,13 +24,13 @@ rais_2020 = (
     spark
     .read
     .format("parquet")
-    .load("s3://dados-rais-2020-edc/silver/rais_2020")
+    .load("s3://dados-rais-2020-edc/silver/rais_2020/")
 )
 
 # Corrigindo o nome das colunas
 logger.info("Corrigindo o nome das colunas...")
 rais_2020 = (
-    rais
+    rais_2020
     .withColumnRenamed('Bairros SP', 'bairros_sp')
     .withColumnRenamed('Bairros Fortaleza', 'bairros_fortaleza')
     .withColumnRenamed('Bairros RJ', 'bairros_rj')
@@ -96,17 +94,18 @@ rais_2020 = (
 )
 
 # Para que o comando explain() funcione
-from py4j.java_gateway import java_import
-java_import(spark._sc._jvm, "org.apache.spark.sql.api.python.*")
+# from py4j.java_gateway import java_import
+# java_import(spark._sc._jvm, "org.apache.spark.sql.api.python.*")
 
 # Construindo a coluna `uf`
 logger.info("Contruindo a coluna `uf`...")
-rais = rais.withColumn("uf", f.col("municipio").cast('string').substr(1,2).cast('int'))
+rais_2020 = rais_2020.withColumn("uf", f.col("municipio").cast('string').substr(1,2).cast('int'))
 
-rais.printSchema()
+# Printa o Schema do df
+rais_2020.printSchema()
 
 # Corrigindo as colunas de remuneração para que sejam do tipo `double`
-rais.select(
+rais_2020.select(
     'mes_desligamento'
 ).show(10)
 
@@ -137,7 +136,7 @@ from delta.tables import *
 # Escrevendo os dados em formato delta na zona gold
 logger.info("Escrevendo os dados tratados...")
 (
-    rais
+    rais_2020
     .coalesce(50)
     .write.mode('overwrite')
     .partitionBy('uf')

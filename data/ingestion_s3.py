@@ -1,7 +1,7 @@
 import boto3
 # import pandas as pd
 
-# Criar um cliente para interagir com o AWS S3
+# Cria um cliente para interagir com o AWS S3
 s3_client = boto3.client('s3')
 
 # Download de um arquivo do s3
