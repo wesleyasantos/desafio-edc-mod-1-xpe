@@ -6,18 +6,17 @@ from pyspark.sql.functions import col, min, max, lit
 
 # Config de logs da aplicação
 logging.basicConfig(stream=sys.stdout)
-logger = logging.getLogger('datalake_enem_small_upsert')
+logger = logging.getLogger('aws-logs-962963747765-us-east-2')
 logger.setLevel(logging.DEBUG)
 
 # Define a SparkSession
-spark = (sparkSession
-        .builder
-        .appName("Processed")
-        .config("spark.jars.packages", "io.delta:delta-core_2.12:1.0.0")
-        .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
-        .config("sparl.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
-        .getOrCreate()
-)
+spark = SparkSession \
+    .builder \
+    .appName("Processed") \
+    .config("spark.jars.packages", "io.delta:delta-core_2.12:1.0.0") \
+    .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
+    .config("sparl.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
+    .getOrCreate()
 
 logger.info("Importing delta.tables...")
 from delta.tables import *
